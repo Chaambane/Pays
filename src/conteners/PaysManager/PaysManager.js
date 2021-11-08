@@ -7,15 +7,26 @@ import Countries from './Countries/Countries';
 
 class PaysManager extends Component {
     state = {
-        listeCountries: null,
-        loading: false
+        listeCountries: [],
+        loading: false,
     }
 
-    // componnentDidMount fait un appel à l'API au montage de l'application afin de télécharger les doonnées essentiels définis dans la fonction ensuite modifier le listeCountries dans les states.
+    // componnentDidMount fait un appel à l'API au montage de l'application avec un affichage sur tous les pays.
     componentDidMount = () => {
+       this.handleSelectRegion("all");
+    };
+
+    // La fonction handleSelectRegion fait un appel à l'Api et permet de filtrer sur les régions.
+    handleSelectRegion = (region) => {
+        // console.log(region);
         this.setState({loading: true})
-        axios.get('https://restcountries.com/v3.1/all')
+        let regionSelect = "";
+        if(region === "all") regionSelect = "all";
+        else regionSelect = `region/${region}`;
+
+        axios.get(`https://restcountries.com/v3.1/${regionSelect}`)
             .then(response => {
+                // console.log(response.data);
                 const listeCountries = response.data.map(countries => { // je parcours les data et récupère que ce que je souhaite affiché.
                     return{
                         name: countries.name.common,
@@ -27,25 +38,26 @@ class PaysManager extends Component {
                 })
                 this.setState({
                     listeCountries,
-                    loading: false
+                    loading: false,
                 })
                 // console.log(response.data);
             })
             .catch(error => {
                 this.setState({loading: false})
             })
-    };
+    }
 
     render() {
         return (
             <main className="container">
                 <TitleH1>Les Pays du monde</TitleH1>
-                <Button>Tous</Button>
-                <Button>Europe</Button>
-                <Button>Afrique</Button>
-                <Button>Asie</Button>
-                <Button>Amérique</Button>
-                <Button>Océanie</Button>
+                {/*Les bouttons transmettent la région sur laquel filtrer pour afficher les pays*/}
+                <Button clic={() => this.handleSelectRegion("all")}>Tous</Button>
+                <Button clic={() => this.handleSelectRegion("Europe")}>Europe</Button>
+                <Button clic={() => this.handleSelectRegion("Africa")}>Afrique</Button>
+                <Button clic={() => this.handleSelectRegion("Asia")}>Asie</Button>
+                <Button clic={() => this.handleSelectRegion("Americas")}>Amérique</Button>
+                <Button clic={() => this.handleSelectRegion("oceania")}>Océanie</Button>
                 {
                     this.state.loading &&
                     <Spinner/>
