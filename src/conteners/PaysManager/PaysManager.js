@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import TitleH1 from '../../components/TitleH1/TitleH1';
 
 class PaysManager extends Component {
     render() {
         return (
             <main className="container">
-                <h1 className=" bg-info mt-2 rounded text-center text-white fw-bold p-2">Pays</h1>
+                <TitleH1>Les Pays du monde</TitleH1>
             </main>
         )
     };
