@@ -9,6 +9,7 @@ class PaysManager extends Component {
     state = {
         listeCountries: [],
         loading: false,
+        regionSelect: null
     }
 
     // componnentDidMount fait un appel à l'API au montage de l'application avec un affichage sur tous les pays.
@@ -39,6 +40,7 @@ class PaysManager extends Component {
                 this.setState({
                     listeCountries,
                     loading: false,
+                    regionSelect: region
                 })
                 // console.log(response.data);
             })
@@ -51,17 +53,30 @@ class PaysManager extends Component {
         return (
             <main className="container">
                 <TitleH1>Les Pays du monde</TitleH1>
-                {/*Les bouttons transmettent la région sur laquel filtrer pour afficher les pays*/}
-                <Button clic={() => this.handleSelectRegion("all")}>Tous</Button>
-                <Button clic={() => this.handleSelectRegion("Europe")}>Europe</Button>
-                <Button clic={() => this.handleSelectRegion("Africa")}>Afrique</Button>
-                <Button clic={() => this.handleSelectRegion("Asia")}>Asie</Button>
-                <Button clic={() => this.handleSelectRegion("Americas")}>Amérique</Button>
-                <Button clic={() => this.handleSelectRegion("oceania")}>Océanie</Button>
+                {/*Les bouttons transmettent la région sur laquel filtrer pour afficher les pays et btnSelect permet de tester si la région dans laquel on a cliqué correspond bien à celle déclaré dans les states pour pouvoir changer l'opacité dans le composant button.*/}
+                <Button clic={() => this.handleSelectRegion("all")}
+                    btnSelect={this.state.regionSelect === "all"}
+                >Tous</Button>
+                <Button clic={() => this.handleSelectRegion("Europe")}
+                    btnSelect={this.state.regionSelect === "Europe"}
+                >Europe</Button>
+                <Button clic={() => this.handleSelectRegion("Africa")}
+                    btnSelect={this.state.regionSelect === "Africa"}
+                >Afrique</Button>
+                <Button clic={() => this.handleSelectRegion("Asia")}
+                    btnSelect={this.state.regionSelect === "Asia"}
+                >Asie</Button>
+                <Button clic={() => this.handleSelectRegion("Americas")}
+                    btnSelect={this.state.regionSelect === "Americas"}
+                >Amérique</Button>
+                <Button clic={() => this.handleSelectRegion("Oceania")}
+                    btnSelect={this.state.regionSelect === "Oceania"}
+                >Océanie</Button>
                 {
                     this.state.loading &&
                     <Spinner/>
                 }
+                <div className="fw-bold">Nombre de pays : <span className="badge bg-success">{this.state.listeCountries.length}</span></div>
                 <div className="row no-gutters container justify-content-center">
                     {
                         this.state.listeCountries && !this.state.loading &&
