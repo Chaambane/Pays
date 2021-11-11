@@ -71,7 +71,7 @@ class PaysManager extends Component {
             listOfCountries = reducedListDisplay.map(country => {
                 return(
                     <div className="col-12 col-md-5 border border-primary rounded m-1" key={country.name}>
-                        <Countries {...country}/>
+                        <Countries {...country} {...this.props}/>
                     </div>
                 )
             })
