@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import DetailCountry from './conteners/DetailCountry/DetailCountry';
 import Error404 from './components/Error404/Error404';
+import './App.css';
 
 
 function App() {
