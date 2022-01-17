@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/react/pays'>
       <Navbar/>
       <Switch>
         <Route path="/" exact render={() => <h1 className="fw-bold container text-primary">Accueil</h1>}/>
